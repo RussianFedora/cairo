@@ -8,7 +8,7 @@ License:   LGPL/MPL
 Group:     System Environment/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
-BuildRequires: /sbin/ldconfig
+Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
 
 %description 
@@ -36,15 +36,17 @@ source vector graphics library.
 
 %build
 %configure --enable-warnings --disable-glitz
-make CFLAGS="$RPM_OPT_FLAGS"
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall 
-/sbin/ldconfig -n %{_libdir}
 rm $RPM_BUILD_ROOT/%{_libdir}/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig 
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -62,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/cairo.pc
 
 %changelog
+* Tue Nov 16 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
+- Incorporate changes suggested by katzj: Require: ldconfig and run it
+  in %post and %postun, don't pass CFLAGS to make.
+
 * Mon Aug  9 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
 - Update license, explicitly disable glitz.
 - Create package.
