@@ -35,7 +35,7 @@ source vector graphics library.
 %setup -q
 
 %build
-%configure --enable-warnings
+%configure --enable-warnings --disable-glitz
 make CFLAGS="$RPM_OPT_FLAGS"
 
 %install
@@ -62,6 +62,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/cairo.pc
 
 %changelog
-* Mon Aug  9 2004 Kristian Høgsberg <krh@redhat.com> 0.1.23.cvs20040809-1
-
+* Mon Aug  9 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
+- Update license, explicitly disable glitz.
 - Create package.
