@@ -1,6 +1,6 @@
 Summary:   A vector graphics library
 Name:      cairo
-Version:   0.2.0
+Version:   0.3.0
 Release:   1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
@@ -35,7 +35,8 @@ source vector graphics library.
 %setup -q
 
 %build
-%configure --enable-warnings --disable-glitz
+%configure --enable-warnings --disable-glitz --disable-quartz \
+	--disable-atsui --disable-xcb
 make
 
 %install
@@ -56,14 +57,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%{_includedir}/cairo-features.h
-%{_includedir}/cairo.h
+%{_includedir}/cairo/*
 %{_libdir}/libcairo*.a
 #%{_libdir}/libcairo*.la
 %{_libdir}/libcairo.so
 %{_libdir}/pkgconfig/cairo.pc
 
 %changelog
+* Sun Jan 23 2005 Kristian Høgsberg <krh@redhat.com> - 0.3.0-1
+- Update to 0.3.0, explicitly disable more backends.
+
 * Tue Nov 16 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
 - Incorporate changes suggested by katzj: Require: ldconfig and run it
   in %post and %postun, don't pass CFLAGS to make.
