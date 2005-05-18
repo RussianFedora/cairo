@@ -1,6 +1,6 @@
 Summary:   A vector graphics library
 Name:      cairo
-Version:   0.3.0
+Version:   0.5.0
 Release:   1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
@@ -15,14 +15,13 @@ BuildRequires: pkgconfig
 Cairo is a vector graphics library designed to provide high-quality
 display and print output. Currently supported output targets include
 the X Window System, OpenGL (via glitz), in-memory image buffers, and
-image files (PNG and PostScript). Initial work has begin on support
-for PDF file output. Cairo is designed to produce identical output on
-all output media while taking advantage of display hardware
-acceleration when available (eg. through the X Render Extension or
-OpenGL).
+image files (PDF and PostScript).  Cairo is designed to produce
+identical output on all output media while taking advantage of display
+hardware acceleration when available (eg. through the X Render
+Extension or OpenGL).
 
 %package devel
-Summary: cairo developmental libraries and header files
+Summary: Cairo developmental libraries and header files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -64,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/cairo.pc
 
 %changelog
+* Tue May 17 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.0-1
+- Update to 0.5.0.
+
 * Sun Jan 23 2005 Kristian Høgsberg <krh@redhat.com> - 0.3.0-1
 - Update to 0.3.0, explicitly disable more backends.
 
