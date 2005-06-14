@@ -10,7 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
-BuildRequires: libpixman-devel >= 0.5.0
+BuildRequires: libpixman-devel >= 0.1.5
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
