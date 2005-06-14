@@ -1,7 +1,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.5.0
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -10,6 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
+BuildRequires: libpixman-devel >= 0.5.0
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -35,7 +36,7 @@ source vector graphics library.
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
-	--disable-atsui --disable-xcb
+	--disable-atsui --disable-xcb --disable-win32
 make
 
 %install
@@ -63,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/cairo.pc
 
 %changelog
+* Tue Jun 14 2005 Kristian Høgsberg <krh@redhat.com> 0.5.0-2
+- Add libpixman-devel BuildRequires.
+- Explicitly disable win32 backend.
+
 * Tue May 17 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.0-1
 - Update to 0.5.0.
 
