@@ -1,7 +1,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.5.1
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -46,8 +46,8 @@ make
 rm -rf $RPM_BUILD_ROOT
 
 %makeinstall 
-rm $RPM_BUILD_ROOT/%{_libdir}/*.la
-rm -rf $RPM_BUILD_ROOT/%{_datadir}/gtk-doc
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -63,19 +63,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%{_includedir}/cairo/*
-%{_libdir}/libcairo*.a
-#%{_libdir}/libcairo*.la
-%{_libdir}/libcairo.so
-%{_libdir}/pkgconfig/cairo.pc
+%{_includedir}/*
+%{_libdir}/libcairo*.so
+%{_libdir}/pkgconfig/*
+%{_datadir}/gtk-doc/*
 
 %changelog
-* Mon Jun 20 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-1
+* Tue Jun 21 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-2
+- Package gtk docs as part of devel package.
+- Nuke static library.
+- Update devel files so /usr/include/cairo is owned by devel package.
+
+* Mon Jun 20 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-1
 - Update to cairo 0.5.1.
 - Remove gtk-doc files, since --disable-gtk-doc doesn't work.
 - Disable gtk-doc and add freetype and fontconfig BuildRequires.
 
-* Tue Jun 14 2005 Kristian Høgsberg <krh@redhat.com> 0.5.0-2
+* Tue Jun 14 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.0-2
 - Add libpixman-devel BuildRequires.
 - Explicitly disable win32 backend.
 
