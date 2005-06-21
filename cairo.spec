@@ -44,8 +44,11 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %makeinstall 
 rm $RPM_BUILD_ROOT/%{_libdir}/*.la
+rm -rf $RPM_BUILD_ROOT/%{_sharedir}/gtk-doc
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -69,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Jun 20 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-1
 - Update to cairo 0.5.1.
+- Remove gtk-doc files, since --disable-gtk-doc doesn't work.
 - Disable gtk-doc and add freetype and fontconfig BuildRequires.
 
 * Tue Jun 14 2005 Kristian Høgsberg <krh@redhat.com> 0.5.0-2
