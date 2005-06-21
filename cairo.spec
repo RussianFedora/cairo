@@ -11,6 +11,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
 BuildRequires: libpixman-devel >= 0.1.5
+BuildRequires: freetype-devel >= 2.1.3-3
+BuildRequires: fontconfig-devel >= 2.0
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -36,7 +38,8 @@ source vector graphics library.
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
-	--disable-atsui --disable-xcb --disable-win32
+	--disable-atsui --disable-xcb --disable-win32 \
+	--disable-gtk-doc
 make
 
 %install
@@ -66,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Jun 20 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-1
 - Update to cairo 0.5.1.
+- Disable gtk-doc and add freetype and fontconfig BuildRequires.
 
 * Tue Jun 14 2005 Kristian Høgsberg <krh@redhat.com> 0.5.0-2
 - Add libpixman-devel BuildRequires.
