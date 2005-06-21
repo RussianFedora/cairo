@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %makeinstall 
 rm $RPM_BUILD_ROOT/%{_libdir}/*.la
-rm -rf $RPM_BUILD_ROOT/%{_sharedir}/gtk-doc
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/gtk-doc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
