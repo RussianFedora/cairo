@@ -1,7 +1,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.5.1
-Release:   2
+Release:   3
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -27,6 +27,7 @@ Extension or OpenGL).
 Summary: Cairo developmental libraries and header files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: libpixman-devel
 
 %description devel
 Developmental libraries and header files required for developing or
@@ -69,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Jun 22 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-3
+- Add requirement on libpixman-devel for devel package.
+
 * Tue Jun 21 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-2
 - Package gtk docs as part of devel package.
 - Nuke static library.
