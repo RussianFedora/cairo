@@ -1,7 +1,11 @@
+%define freetype_version 2.1.3-3
+%define fontconfig_version 2.0
+%define libpixman_version 0.1.5
+
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.5.1
-Release:   3
+Release:   4
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -10,9 +14,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
-BuildRequires: libpixman-devel >= 0.1.5
-BuildRequires: freetype-devel >= 2.1.3-3
-BuildRequires: fontconfig-devel >= 2.0
+BuildRequires: libpixman-devel >= %{libpixman_version}
+BuildRequires: xorg-x11-devel
+BuildRequires: libpng-devel
+BuildRequires: freetype-devel >= %{freetype_version}
+BuildRequires: fontconfig-devel >= %{fontconfig_version}
+
+Patch0: cairo-0.5.1-bitmap-fonts.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -27,7 +35,11 @@ Extension or OpenGL).
 Summary: Cairo developmental libraries and header files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: libpixman-devel
+Requires: libpixman-devel >= %{pixman_version}
+Requires: xorg-x11-devel
+Requires: libpng-devel
+Requires: freetype-devel >= %{freetype_version}
+Requires: fontconfig-devel >= %{fontconfig_version}
 
 %description devel
 Developmental libraries and header files required for developing or
@@ -36,6 +48,8 @@ source vector graphics library.
 
 %prep
 %setup -q
+
+%patch0 -p0 -b .bitmap-fonts
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -70,6 +84,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Sun Jun 26 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-4
+- Add more missing devel package requires (libpng-devel and
+  xorg-x11-devel) (#161688)
+- Add Owens patch (cairo-0.5.1-bitmap-fonts.patch) to make bitmap
+  fonts work with cairo (#161653).
+
 * Wed Jun 22 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-3
 - Add requirement on libpixman-devel for devel package.
 
