@@ -5,7 +5,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.5.1
-Release:   4
+Release:   5
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -35,7 +35,7 @@ Extension or OpenGL).
 Summary: Cairo developmental libraries and header files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: libpixman-devel >= %{pixman_version}
+Requires: libpixman-devel >= %{libpixman_version}
 Requires: xorg-x11-devel
 Requires: libpng-devel
 Requires: freetype-devel >= %{freetype_version}
@@ -84,13 +84,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Jul  6 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-5
+- Fix typo in use of libpixman_version macro (Thanks to Michael
+  Schwendt, #162550).
+
 * Sun Jun 26 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-4
 - Add more missing devel package requires (libpng-devel and
   xorg-x11-devel) (#161688)
 - Add Owens patch (cairo-0.5.1-bitmap-fonts.patch) to make bitmap
   fonts work with cairo (#161653).
 
-* Wed Jun 22 2005 Kristian Høgsberg <krh@redhat.com> 0.5.1-3
+* Wed Jun 22 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-3
 - Add requirement on libpixman-devel for devel package.
 
 * Tue Jun 21 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-2
