@@ -4,8 +4,8 @@
 
 Summary:   A vector graphics library
 Name:      cairo
-Version:   0.5.1
-Release:   5
+Version:   0.5.2
+Release:   1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -19,8 +19,6 @@ BuildRequires: xorg-x11-devel
 BuildRequires: libpng-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
-
-Patch0: cairo-0.5.1-bitmap-fonts.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -48,8 +46,6 @@ source vector graphics library.
 
 %prep
 %setup -q
-
-%patch0 -p0 -b .bitmap-fonts
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -84,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Mon Jul 18 2005 Kristian Høgsberg <krh@redhat.com> 0.5.2-1
+- Update to cairo-0.5.2 and drop bitmap font patch.
+
 * Wed Jul  6 2005 Kristian Høgsberg <krh@redhat.com> - 0.5.1-5
 - Fix typo in use of libpixman_version macro (Thanks to Michael
   Schwendt, #162550).
