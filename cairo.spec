@@ -5,12 +5,14 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.6.0
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
 Group:     System Environment/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
+Patch0: cairo-0.6.0-font-options-to-scaled-font.patch
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
@@ -47,6 +49,8 @@ source vector graphics library.
 %prep
 %setup -q
 
+%patch0 -p1 -b .font-options-to-scaled-font
+
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
 	--disable-atsui --disable-xcb --disable-win32 \
@@ -80,6 +84,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue Aug  2 2005 Kristian Høgsberg <krh@redhat.com> - 0.6.0-2
+- Add cairo-0.6.0-font-options-to-scaled-font.patch to make sure font
+  cache eviction works correctly (#164664).
+
 * Thu Jul 28 2005 Owen Taylor <otaylor@devserv.devel.redhat.com> 0.6.0-1
 - Update to cairo-0.6.0
 
