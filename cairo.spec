@@ -21,6 +21,8 @@ BuildRequires: libpng-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
+Patch0: cairo-0.9.2-cache-eviction-fix.patch
+
 %description 
 Cairo is a vector graphics library designed to provide high-quality
 display and print output. Currently supported output targets include
@@ -46,6 +48,8 @@ source vector graphics library.
 
 %prep
 %setup -q
+
+%patch0 -p1 -b .cache-eviction-fix.patch
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -83,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sun Aug 14 2005 Kristian Høgsberg <krh@redhat.com> 0.9.2-1
 - Update to cairo 0.9.2.  Add Obsoletes: for libpixman <= 0.1.6.
 - Drop cairo-0.6.0-font-options-to-scaled-font.patch.
+- Add cairo-0.9.2-cache-eviction-fix.patch to fix ft font cache eviction.
 
 * Tue Aug  2 2005 Kristian Høgsberg <krh@redhat.com> - 0.6.0-2
 - Add cairo-0.6.0-font-options-to-scaled-font.patch to make sure font
