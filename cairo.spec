@@ -13,6 +13,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 Obsoletes: libpixman <= 0.1.6
 Obsoletes: libpixman-devel <= 0.1.6
+Obsoletes: libpixman-debuginfo <= 0.1.6
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
@@ -84,10 +85,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Mon Aug 15 2005 Kristian Høgsberg <krh@redhat.com> 0.9.2-1
+- Also obsolete libpixman-debuginfo.
+- Add cairo-0.9.2-cache-eviction-fix.patch to fix ft font cache eviction.
+
 * Sun Aug 14 2005 Kristian Høgsberg <krh@redhat.com> 0.9.2-1
 - Update to cairo 0.9.2.  Add Obsoletes: for libpixman <= 0.1.6.
 - Drop cairo-0.6.0-font-options-to-scaled-font.patch.
-- Add cairo-0.9.2-cache-eviction-fix.patch to fix ft font cache eviction.
 
 * Tue Aug  2 2005 Kristian Høgsberg <krh@redhat.com> - 0.6.0-2
 - Add cairo-0.6.0-font-options-to-scaled-font.patch to make sure font
