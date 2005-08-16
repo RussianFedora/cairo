@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.9.2
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue Aug 16 2005 Kristian Høgsberg <krh@redhat.com> - 0.9.2-2
+- Rebuild against new freetype to get rid of --rpath in cairo.pc.
+
 * Mon Aug 15 2005 Kristian Høgsberg <krh@redhat.com> 0.9.2-1
 - Also obsolete libpixman-debuginfo.
 - Add cairo-0.9.2-cache-eviction-fix.patch to fix ft font cache eviction.
