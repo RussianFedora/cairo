@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   0.9.2
-Release:   2
+Release:   3
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -23,6 +23,7 @@ BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 Patch0: cairo-0.9.2-cache-eviction-fix.patch
+Patch1: cairo-0.9.2-dont-hash-null-string.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -50,7 +51,8 @@ source vector graphics library.
 %prep
 %setup -q
 
-%patch0 -p1 -b .cache-eviction-fix.patch
+%patch0 -p1 -b .cache-eviction-fix
+%patch1 -p1 -b .dont-hash-null-string
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -85,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri Aug 19 2005 Kristian Høgsberg <krh@redhat.com> 0.9.2-3
+- Add cairo-0.9.2-dont-hash-null-string.patch to avoid crash when
+  creating a cairo font from a FT_Face.
+
 * Tue Aug 16 2005 Kristian Høgsberg <krh@redhat.com> - 0.9.2-2
 - Rebuild against new freetype to get rid of --rpath in cairo.pc.
 
