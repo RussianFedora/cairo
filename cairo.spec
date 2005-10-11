@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.0.2
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue Oct 11 2005 Kristian Høgsberg <krh@redhat.com> 1.0.2-2
+- Rebuild against freetype-2.10 to pick up FT_GlyphSlot_Embolden.
+
 * Thu Oct  6 2005 Kristian Høgsberg <krh@redhat.com> - 1.0.2-1
 - Update to cairo-1.0.2.
 
