@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.0.2
-Release:   2
+Release:   3
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -17,7 +17,7 @@ Obsoletes: libpixman-debuginfo <= 0.1.6
 
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
-BuildRequires: xorg-x11-devel
+BuildRequires: libXrender-devel
 BuildRequires: libpng-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
@@ -35,7 +35,7 @@ Extension or OpenGL).
 Summary: Cairo developmental libraries and header files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: xorg-x11-devel
+Requires: libXrender-devel
 Requires: libpng-devel
 Requires: freetype-devel >= %{freetype_version}
 Requires: fontconfig-devel >= %{fontconfig_version}
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Mon Oct 31 2005 Matthias Clasen <mclasen@redhat.com> 1.0.2-3
+- Require libXrender-devel instead of xorg-X11-devel
+
 * Tue Oct 11 2005 Kristian Høgsberg <krh@redhat.com> 1.0.2-2
 - Rebuild against freetype-2.10 to pick up FT_GlyphSlot_Embolden.
 
