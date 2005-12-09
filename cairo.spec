@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.0.2
-Release:   3
+Release: 3.1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Mon Oct 31 2005 Matthias Clasen <mclasen@redhat.com> 1.0.2-3
 - Require libXrender-devel instead of xorg-X11-devel
 
