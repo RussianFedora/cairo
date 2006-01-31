@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.0.2
-Release:   3.2
+Release:   4
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -18,9 +18,13 @@ Obsoletes: libpixman-debuginfo <= 0.1.6
 Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
+BuildRequires: libX11-devel
 BuildRequires: libpng-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
+
+Patch0: cairo-1.0.2-embedded-bitmaps.patch
+Patch1: cairo-1.0.2-fix-build.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -47,6 +51,8 @@ source vector graphics library.
 
 %prep
 %setup -q
+%patch0 -p1 -b .embedded-bitmaps
+%patch1 -p1 -b .fix-build
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -81,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue Jan 31 2006 Ray Strode <rstrode@redhat.com> 1.0.2-4
+- add patch from Tim Mayberry to support embbedded bitmap
+  fonts (bug 176910)
+
 * Tue Jan  3 2006 Jesse Keating <jkeating@redhat.com> 1.0.2-3.2
 - rebuilt again
 
