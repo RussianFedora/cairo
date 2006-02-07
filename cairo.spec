@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.0.2
-Release:   4
+Release:   4.1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 1.0.2-4.1
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Tue Jan 31 2006 Ray Strode <rstrode@redhat.com> 1.0.2-4
 - add patch from Tim Mayberry to support embbedded bitmap
   fonts (bug 176910)
