@@ -24,8 +24,6 @@ BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 Patch0: cairo-1.0.2-embedded-bitmaps.patch
-Patch1: cairo-1.0.2-fix-build.patch
-Patch2: cairo-1.0.2-chunk-glyphs-CVE-2006-0528.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -53,8 +51,6 @@ source vector graphics library.
 %prep
 %setup -q
 %patch0 -p1 -b .embedded-bitmaps
-%patch1 -p1 -b .fix-build
-%patch2 -p1 -b .chunk-glyphs-CVS-2006-0528
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -91,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Mar 15 2006 Matthias Clasen <mclasen@redhat.com> - 1.0.4-1
 - Update to 1.0.4
+- Drop upstreamed patches
 
 * Fri Mar  3 2006 Carl Worth <cworth@redhat.com> - 1.0.2-5
 - add patch to chunk Xlib glyph compositing (bug 182416 and
