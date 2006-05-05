@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.1.6
-Release:   1
+Release:   2
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -24,6 +24,7 @@ BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 Patch0: cairo-1.1.4-work-with-older-poppler.patch
+Patch1: cairo-1.1.6-do-not-build-pdf2svg.patch
 
 %description 
 Cairo is a vector graphics library designed to provide high-quality
@@ -51,6 +52,7 @@ source vector graphics library.
 %prep
 %setup -q
 %patch0 -p1 -b .work-with-older-poppler
+%patch1 -p1 -b .do-not-build-pdf2svg
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
@@ -85,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri May  5 2006 Carl Worth <cworth@redhat.com> - 1.1.6-2
+- Refuse to build pdf2svg to avoid depending on newer poppler
+
 * Fri May  5 2006 Carl Worth <cworth@redhat.com> - 1.1.6-1
 - Update to new upstream 1.1.6
 
