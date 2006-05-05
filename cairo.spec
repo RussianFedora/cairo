@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.1.6
-Release:   3
+Release:   4
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
