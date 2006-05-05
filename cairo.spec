@@ -3,8 +3,8 @@
 
 Summary:   A vector graphics library
 Name:      cairo
-Version:   1.1.4
-Release:   2
+Version:   1.1.6
+Release:   1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri May  5 2006 Carl Worth <cworth@redhat.com> - 1.1.6-1
+- Update to new upstream 1.1.6
+
 * Wed May  3 2006 Carl Worth <cworth@redhat.com> - 1.1.4-2
 - Revert upstream commit that introduced a dependency on a newer
   poppler version for the PDF tests.
