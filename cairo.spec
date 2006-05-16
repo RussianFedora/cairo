@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.1.6
-Release:   5
+Release:   6
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -20,6 +20,7 @@ BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
 BuildRequires: libX11-devel
 BuildRequires: libpng-devel
+BuildRequires: libxml2-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
@@ -87,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Tue May 16 2006 Karsten Hopp <karsten@redhat.de> 1.1.6-6
+- buildrequire libxml2-devel
+
 * Fri May  5 2006 Carl Worth <cworth@redhat.com> - 1.1.6-2
 - Refuse to build pdf2svg to avoid depending on newer poppler
 
