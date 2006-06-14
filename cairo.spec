@@ -3,8 +3,8 @@
 
 Summary:   A vector graphics library
 Name:      cairo
-Version:   1.1.6
-Release:   6
+Version:   1.1.8
+Release:   1
 URL:       http://cairographics.org
 Source0:   %{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Jun 14 2006 Matthias Clasen <mclasen@redhat.com> 1.1.8-1
+- Update to 1.1.8
+
 * Tue May 16 2006 Karsten Hopp <karsten@redhat.de> 1.1.6-6
 - buildrequire libxml2-devel
 
