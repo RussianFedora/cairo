@@ -24,6 +24,8 @@ BuildRequires: libxml2-devel
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
+Patch0: cairo-1.1.6-do-not-build-pdf2svg.patch 
+
 %description 
 Cairo is a vector graphics library designed to provide high-quality
 display and print output. Currently supported output targets include
@@ -49,6 +51,7 @@ source vector graphics library.
 
 %prep
 %setup -q
+%patcho -p1 -b .do-not-build-pdf2svg
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
