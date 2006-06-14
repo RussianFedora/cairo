@@ -51,7 +51,7 @@ source vector graphics library.
 
 %prep
 %setup -q
-%patcho -p1 -b .do-not-build-pdf2svg
+%patch -p1 -b .do-not-build-pdf2svg
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
