@@ -3,10 +3,10 @@
 
 Summary:   A vector graphics library
 Name:      cairo
-Version:   1.2.0
-Release:   2
+Version:   1.2.2
+Release:   1
 URL:       http://cairographics.org
-Source0:   %{name}-%{version}.tar.gz
+Source0:   http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:   LGPL/MPL
 Group:     System Environment/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -28,7 +28,7 @@ BuildRequires: fontconfig-devel >= %{fontconfig_version}
 Cairo is a vector graphics library designed to provide high-quality
 display and print output. Currently supported output targets include
 the X Window System, OpenGL (via glitz), in-memory image buffers, and
-image files (PDF and PostScript).  Cairo is designed to produce
+image files (PDF, PostScript, and SVG).  Cairo is designed to produce
 identical output on all output media while taking advantage of display
 hardware acceleration when available (eg. through the X Render
 Extension or OpenGL).
@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Aug  9 2006 Behdad Esfahbod <besfahbo@redhat.com> 1.2.2-1
+- Update to 1.2.2
+
 * Tue Jul 18 2006 Matthias Clasen <mclasen@redhat.com> - 1.2.0-2
 - rebuild
 
