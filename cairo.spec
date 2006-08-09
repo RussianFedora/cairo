@@ -4,7 +4,7 @@
 Summary:   A vector graphics library
 Name:      cairo
 Version:   1.2.2
-Release:   1
+Release:   2%{?dist}
 URL:       http://cairographics.org
 Source0:   http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:   LGPL/MPL
@@ -19,6 +19,7 @@ Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
 BuildRequires: libX11-devel
+BuildRequires: libXt-devel
 BuildRequires: libpng-devel
 BuildRequires: libxml2-devel
 BuildRequires: freetype-devel >= %{freetype_version}
@@ -52,6 +53,7 @@ source vector graphics library.
 
 %build
 %configure --enable-warnings --disable-glitz --disable-quartz \
+        --enable-xlib \
 	--disable-atsui --disable-xcb --disable-win32 \
 	--disable-gtk-doc
 make
@@ -59,7 +61,7 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%makeinstall 
+make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
@@ -83,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Aug  9 2006 Ray Strode <rstrode@redhat.com> - 1.2.2-2
+- add lame libXt-devel BuildReq to get things building again.
+- small spec tweaks to follow conventions
+
 * Wed Aug  9 2006 Behdad Esfahbod <besfahbo@redhat.com> 1.2.2-1
 - Update to 1.2.2
 
