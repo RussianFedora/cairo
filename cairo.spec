@@ -52,9 +52,8 @@ source vector graphics library.
 %setup -q
 
 %build
-%configure --enable-warnings --disable-glitz --disable-quartz \
-        --enable-xlib \
-	--disable-atsui --disable-xcb --disable-win32 \
+%configure --enable-warnings --enable-xlib --enable-freetype \
+	--enable-ps --enable-pdf --enable-svg \
 	--disable-gtk-doc
 make
 
@@ -85,6 +84,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Wed Aug  9 2006 Behdad Esfahbod <besfahbo@redhat.com> 1.2.2-3
+- Remove unnecessary --disable-* arguments to configure, add --enable-*
+  for those backends we really want to make sure are enabled.
+
 * Wed Aug  9 2006 Ray Strode <rstrode@redhat.com> - 1.2.2-2
 - add lame libXt-devel BuildReq to get things building again.
 - small spec tweaks to follow conventions
