@@ -3,7 +3,7 @@
 
 Summary:   A vector graphics library
 Name:      cairo
-Version:   1.2.4
+Version:   1.2.6
 Release:   1%{?dist}
 URL:       http://cairographics.org
 Source0:   http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -41,6 +41,7 @@ Requires: libXrender-devel
 Requires: libpng-devel
 Requires: freetype-devel >= %{freetype_version}
 Requires: fontconfig-devel >= %{fontconfig_version}
+Requires: pkgconfig
 
 %description devel
 Developmental libraries and header files required for developing or
@@ -83,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/*
 
 %changelog
+* Sun Nov  5 2006 Matthias Clasen <mclasen@redhat.com> 1.2.6-1
+- Update to 1.2.6
+
 * Sun Aug 20 2006 Behdad Esfahbod <besfahbo@redhat.com> 1.2.4-1
 - Update to 1.2.4
 - Drop libXt-devel BuildReq as it shouldn't need it anymore.
