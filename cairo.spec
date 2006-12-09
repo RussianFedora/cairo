@@ -1,21 +1,20 @@
 %define freetype_version 2.1.3-3
 %define fontconfig_version 2.0
 
-Summary:   A vector graphics library
-Name:      cairo
-Version:   1.3.6
-Release:   1%{?dist}
-URL:       http://cairographics.org
-Source0:   http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
-License:   LGPL/MPL
-Group:     System Environment/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+Summary:	A vector graphics library
+Name:		cairo
+Version:	1.3.6
+Release:	2%{?dist}
+URL:		http://cairographics.org
+Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
+License:	LGPL/MPL
+Group:		System Environment/Libraries
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 
 Obsoletes: libpixman <= 0.1.6
 Obsoletes: libpixman-devel <= 0.1.6
 Obsoletes: libpixman-debuginfo <= 0.1.6
 
-Requires: /sbin/ldconfig
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
 BuildRequires: libX11-devel
@@ -52,8 +51,13 @@ source vector graphics library.
 %setup -q
 
 %build
-%configure --enable-warnings --enable-xlib --enable-freetype \
-	--enable-ps --enable-pdf --enable-svg \
+%configure --disable-static 	\
+	--enable-warnings 	\
+	--enable-xlib 		\
+	--enable-freetype 	\
+	--enable-ps 		\
+	--enable-pdf 		\
+	--enable-svg 		\
 	--disable-gtk-doc
 make
 
@@ -62,7 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,8 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO
-
+%doc AUTHORS ChangeLog COPYING NEWS README 
 %{_libdir}/libcairo*.so.* 
 
 %files devel
@@ -81,9 +83,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/libcairo*.so
 %{_libdir}/pkgconfig/*
-%{_datadir}/gtk-doc/*
+%{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Sat Dec  9 2006 Matthias Clasen <mclasen@redhat.com> 1.3.6-2
+- Small spec file cleanups
+
 * Wed Dec  6 2006 Matthias Clasen <mclasen@redhat.com> 1.3.6-1
 - Update to 1.3.6
 
@@ -252,7 +257,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Tue Nov 16 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
 - Incorporate changes suggested by katzj: Require: ldconfig and run it
-  in %post and %postun, don't pass CFLAGS to make.
+  in %%post and %%postun, don't pass CFLAGS to make.
 
 * Mon Aug  9 2004 Kristian Høgsberg <krh@redhat.com> - 0.2.0-1
 - Update license, explicitly disable glitz.
