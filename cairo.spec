@@ -11,10 +11,6 @@ License:	LGPL/MPL
 Group:		System Environment/Libraries
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 
-Obsoletes: libpixman <= 0.1.6
-Obsoletes: libpixman-devel <= 0.1.6
-Obsoletes: libpixman-debuginfo <= 0.1.6
-
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
 BuildRequires: libX11-devel
@@ -29,7 +25,7 @@ display and print output. Currently supported output targets include
 the X Window System, OpenGL (via glitz), in-memory image buffers, and
 image files (PDF, PostScript, and SVG).  Cairo is designed to produce
 identical output on all output media while taking advantage of display
-hardware acceleration when available (eg. through the X Render
+hardware acceleration when available (e.g. through the X Render
 Extension or OpenGL).
 
 %package devel
@@ -44,8 +40,8 @@ Requires: pkgconfig
 
 %description devel
 Developmental libraries and header files required for developing or
-compiling software which links to the cairo library, which is an open
-source vector graphics library.
+compiling software which links to the cairo graphics library, which is
+an open source vector graphics library.
 
 %prep
 %setup -q
@@ -75,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING NEWS README 
+%doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README TODO ROADMAP
 %{_libdir}/libcairo*.so.* 
 
 %files devel
