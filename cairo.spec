@@ -1,10 +1,11 @@
+%define pixman_version 0.9.4
 %define freetype_version 2.1.3-3
 %define fontconfig_version 2.0
 
 Summary:	A vector graphics library
 Name:		cairo
-Version:	1.4.10
-Release:	2%{?dist}
+Version:	1.5.2
+Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPL/MPL
@@ -16,6 +17,7 @@ BuildRequires: libXrender-devel
 BuildRequires: libX11-devel
 BuildRequires: libpng-devel
 BuildRequires: libxml2-devel
+BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
@@ -34,6 +36,7 @@ Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: libXrender-devel
 Requires: libpng-devel
+Requires: pixman-devel >= %{pixman_version}
 Requires: freetype-devel >= %{freetype_version}
 Requires: fontconfig-devel >= %{fontconfig_version}
 Requires: pkgconfig
@@ -82,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Oct 31 2007 Behdad Esfahbod <besfahbo@redhat.com> 1.5.2-1
+- Update to 1.5.2
+- Switch to external pixman.
+
 * Wed Aug 22 2007 Adam Jackson <ajax@redhat.com> - 1.4.10-2
 - Rebuild for PPC toolchain bug
 
