@@ -4,7 +4,7 @@
 
 Summary:	A vector graphics library
 Name:		cairo
-Version:	1.5.2
+Version:	1.5.4
 Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Thu Dec  6 2007 Matthias Clasen <mclasen@redhat.com> - 1.5.4-1
+- Update to 1.5.4
+
 * Wed Oct 31 2007 Behdad Esfahbod <besfahbo@redhat.com> 1.5.2-1
 - Update to 1.5.2
 - Switch to external pixman.
