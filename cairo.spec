@@ -5,7 +5,7 @@
 Summary:	A vector graphics library
 Name:		cairo
 Version:	1.5.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPL/MPL
@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README TODO ROADMAP
+%doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README
 %{_libdir}/libcairo*.so.* 
 
 %files devel
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Jan 30 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.5.8-2
+- Remove TODO and ROADMAP as they were removed from tarball upstream.
+
 * Wed Jan 30 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.5.8-1
 - Update to 1.5.8
 
