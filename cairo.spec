@@ -1,10 +1,10 @@
-%define pixman_version 0.9.4
+%define pixman_version 0.9.6
 %define freetype_version 2.1.3-3
 %define fontconfig_version 2.0
 
 Summary:	A vector graphics library
 Name:		cairo
-Version:	1.5.4
+Version:	1.5.8
 Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -85,6 +85,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Jan 30 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.5.8-1
+- Update to 1.5.8
+
+* Thu Jan 17 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.5.6-1
+- Update to 1.5.6
+
 * Thu Dec  6 2007 Matthias Clasen <mclasen@redhat.com> - 1.5.4-1
 - Update to 1.5.4
 
