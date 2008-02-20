@@ -7,7 +7,7 @@ Name:		cairo
 Version:	1.5.8
 Release:	2%{?dist}
 URL:		http://cairographics.org
-Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 License:	LGPL/MPL
 Group:		System Environment/Libraries
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -85,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Feb 20 2008 Behdad Esfahbod <besfahbo@redhat.com>
+- Point Source to cairographics.org/snapshots.  Change back to /releases
+  when 1.6.0 is out.
+
 * Wed Jan 30 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.5.8-2
 - Remove TODO and ROADMAP as they were removed from tarball upstream.
 
