@@ -1,4 +1,4 @@
-%define pixman_version 0.9.6
+%define pixman_version 0.10.0
 %define freetype_version 2.1.3-3
 %define fontconfig_version 2.0
 
