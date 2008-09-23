@@ -4,7 +4,7 @@
 
 Summary:	A vector graphics library
 Name:		cairo
-Version:	1.7.4
+Version:	1.7.6
 Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Mon Sep 22 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.7.6-1
+- Update to 1.7.6
+
 * Mon Aug 11 2008 Matthias Clasen <mclasen@redhat.com> 1.7.4-1
 - Update to 1.7.4
 
