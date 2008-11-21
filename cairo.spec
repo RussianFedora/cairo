@@ -2,10 +2,10 @@
 %define freetype_version 2.1.9
 %define fontconfig_version 2.0
 
-Summary:	A vector graphics library
+Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -22,16 +22,17 @@ BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 %description 
-Cairo is a vector graphics library designed to provide high-quality
-display and print output. Currently supported output targets include
-the X Window System, OpenGL (via glitz), in-memory image buffers, and
-image files (PDF, PostScript, and SVG).  Cairo is designed to produce
-identical output on all output media while taking advantage of display
-hardware acceleration when available (e.g. through the X Render
-Extension or OpenGL).
+Cairo is a 2D graphics library designed to provide high-quality display 
+and print output. Currently supported output targets include the X Window 
+System, OpenGL (via glitz), in-memory image buffers, and image files (PDF, 
+PostScript, and SVG). 
+
+Cairo is designed to produce consistent output on all output media while 
+taking advantage of display hardware acceleration when available (e.g. 
+through the X Render Extension or OpenGL).
 
 %package devel
-Summary: Cairo developmental libraries and header files
+Summary: Development files for cairo
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: libXrender-devel
@@ -42,9 +43,11 @@ Requires: fontconfig-devel >= %{fontconfig_version}
 Requires: pkgconfig
 
 %description devel
-Developmental libraries and header files required for developing or
-compiling software which links to the cairo graphics library, which is
-an open source vector graphics library.
+Cairo is a 2D graphics library designed to provide high-quality display
+and print output. 
+
+This package contains libraries, header files and developer documentation 
+needed for developing software which uses the cairo graphics library.
 
 %prep
 %setup -q
@@ -85,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Fri Nov 21 2008 Matthias Clasen <mclasen@redhat.com> 1.8.0-2
+- Tweak %%summary and %%documentation
+
 * Thu Sep 25 2008 Behdad Esfahbod <besfahbo@redhat.com> 1.8.0-1
 - Update to 1.8.0
 - Update dep versions
