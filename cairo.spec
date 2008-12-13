@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.8.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Sun Dec 14 2008 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> 1.8.0-3
+- Rebuild for pkgconfig provides
+
 * Fri Nov 21 2008 Matthias Clasen <mclasen@redhat.com> 1.8.0-2
 - Tweak %%summary and %%documentation
 
