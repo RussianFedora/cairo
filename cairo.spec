@@ -88,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
-* Wed Jan  7 2008 Matthias Clasen <mclasen@redhat.com> 1.8.6-1
+* Wed Jan  7 2009 Matthias Clasen <mclasen@redhat.com> 1.8.6-1
 - Update to 1.8.6
 
 * Sun Dec 14 2008 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> 1.8.0-3
