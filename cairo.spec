@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.8.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -20,6 +20,8 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
+
+Patch0: cairo-1.8.6-repeat-modes.patch
 
 %description 
 Cairo is a 2D graphics library designed to provide high-quality display 
@@ -51,6 +53,7 @@ needed for developing software which uses the cairo graphics library.
 
 %prep
 %setup -q
+%patch0 -p1 -b .repeat-modes
 
 %build
 %configure --disable-static 	\
@@ -88,6 +91,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Apr 08 2009 Adam Jackson <ajax@redhat.com> 1.8.6-3
+- cairo-1.8.6-repeat-modes.patch: Enable the repeat and pad blend modes in
+  the xlib backend to make firefox performance slightly less dire.
+
 * Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
