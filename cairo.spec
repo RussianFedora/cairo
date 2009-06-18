@@ -4,13 +4,13 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.8.6
-Release:	3%{?dist}
+Version:	1.8.8
+Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
@@ -23,14 +23,14 @@ BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 Patch0: cairo-1.8.6-repeat-modes.patch
 
-%description 
-Cairo is a 2D graphics library designed to provide high-quality display 
-and print output. Currently supported output targets include the X Window 
-System, OpenGL (via glitz), in-memory image buffers, and image files (PDF, 
-PostScript, and SVG). 
+%description
+Cairo is a 2D graphics library designed to provide high-quality display
+and print output. Currently supported output targets include the X Window
+System, OpenGL (via glitz), in-memory image buffers, and image files (PDF,
+PostScript, and SVG).
 
-Cairo is designed to produce consistent output on all output media while 
-taking advantage of display hardware acceleration when available (e.g. 
+Cairo is designed to produce consistent output on all output media while
+taking advantage of display hardware acceleration when available (e.g.
 through the X Render Extension or OpenGL).
 
 %package devel
@@ -46,9 +46,9 @@ Requires: pkgconfig
 
 %description devel
 Cairo is a 2D graphics library designed to provide high-quality display
-and print output. 
+and print output.
 
-This package contains libraries, header files and developer documentation 
+This package contains libraries, header files and developer documentation
 needed for developing software which uses the cairo graphics library.
 
 %prep
@@ -75,13 +75,13 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig 
+%post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README
-%{_libdir}/libcairo*.so.* 
+%{_libdir}/libcairo*.so.*
 
 %files devel
 %defattr(-,root,root,-)
@@ -91,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Wed Jun 17 2009 Matthias Clasen <mclasen@redhat.com> 1.8.8-1
+- Update to 1.8.8
+
 * Wed Apr 08 2009 Adam Jackson <ajax@redhat.com> 1.8.6-3
 - cairo-1.8.6-repeat-modes.patch: Enable the repeat and pad blend modes in
   the xlib backend to make firefox performance slightly less dire.
