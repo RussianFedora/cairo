@@ -4,8 +4,8 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.8.6
-Release:	3%{?dist}
+Version:	1.8.8
+Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -91,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Thu Jul 16 2009 Behdad Esfahbod <besfahbo@redhat.com> 1.8.8-1
+- Update to 1.8.8
+
 * Wed Apr 08 2009 Adam Jackson <ajax@redhat.com> 1.8.6-3
 - cairo-1.8.6-repeat-modes.patch: Enable the repeat and pad blend modes in
   the xlib backend to make firefox performance slightly less dire.
