@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.8.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -80,17 +80,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README
+%doc AUTHORS BIBLIOGRAPHY BUGS COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS README
 %{_libdir}/libcairo*.so.*
 
 %files devel
 %defattr(-,root,root,-)
+%doc ChangeLog PORTING_GUIDE
 %{_includedir}/*
 %{_libdir}/libcairo*.so
 %{_libdir}/pkgconfig/*
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Sun Aug  2 2009 Matthias Clasen <mclasen@redhat.com> - 1.8.8-3
+- Move ChangeLog to -devel to save space
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
