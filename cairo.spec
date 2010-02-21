@@ -4,13 +4,12 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.8.8
-Release:	3%{?dist}
+Version:	1.8.10
+Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
@@ -92,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Sun Feb 21 2010 Matthias Clasen <mclasen@redhat.com> - 1.8.10-1
+- Update to 1.8.10
+
 * Sun Aug  2 2009 Matthias Clasen <mclasen@redhat.com> - 1.8.8-3
 - Move ChangeLog to -devel to save space
 
