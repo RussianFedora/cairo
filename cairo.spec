@@ -49,6 +49,17 @@ and print output.
 This package contains libraries, header files and developer documentation
 needed for developing software which uses the cairo graphics library.
 
+%package tools
+Summary: Development tools for cairo
+Group: Development/Tools
+
+%description tools
+Cairo is a 2D graphics library designed to provide high-quality display
+and print output.
+
+This package contains tools for working with the cairo graphics library.
+ * cairo-trace: Record cairo library calls for later playback
+
 %prep
 %setup -q
 
@@ -87,6 +98,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libcairo*.so
 %{_libdir}/pkgconfig/*
 %{_datadir}/gtk-doc/html/cairo
+
+%files tools
+%defattr(-,root,root,-)
+%{_bindir}/cairo-trace
+%{_libdir}/cairo
 
 %changelog
 * Thu Jun 17 2010 Benjamin Otte <otte@redhat.com> - 1.9.8-1
