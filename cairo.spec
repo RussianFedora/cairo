@@ -1,13 +1,14 @@
-%define pixman_version 0.12.0
+%define pixman_version 0.17.5
 %define freetype_version 2.1.9
-%define fontconfig_version 2.0
+%define fontconfig_version 2.2.95
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.8.10
+Version:	1.9.8
 Release:	1%{?dist}
 URL:		http://cairographics.org
-Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
+#Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
 
@@ -19,8 +20,6 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
-
-Patch0: cairo-1.8.6-repeat-modes.patch
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -52,7 +51,6 @@ needed for developing software which uses the cairo graphics library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .repeat-modes
 
 %build
 %configure --disable-static 	\
@@ -63,7 +61,7 @@ needed for developing software which uses the cairo graphics library.
 	--enable-pdf 		\
 	--enable-svg 		\
 	--disable-gtk-doc
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -91,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Thu Jun 17 2010 Benjamin Otte <otte@redhat.com> - 1.9.8-1
+- Update to 1.9.8 snapshot
+
 * Sun Feb 21 2010 Matthias Clasen <mclasen@redhat.com> - 1.8.10-1
 - Update to 1.8.10
 
