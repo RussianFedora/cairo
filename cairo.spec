@@ -4,7 +4,7 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.9.8
+Version:	1.9.10
 Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Thu Jun 27 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-1
+- Update to 1.9.10 snapshot
+
 * Thu Jun 17 2010 Benjamin Otte <otte@redhat.com> - 1.9.8-1
 - Update to 1.9.8 snapshot
 
