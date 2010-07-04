@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.9.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -72,12 +72,12 @@ This package contains tools for working with the cairo graphics library.
 	--enable-pdf 		\
 	--enable-svg 		\
 	--disable-gtk-doc
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install DESTDIR=$RPM_BUILD_ROOT
+make install V=1 DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-2
+- Don't use silent rules, we want verbose output in builders
+
 * Thu Jun 27 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-1
 - Update to 1.9.10 snapshot
 
