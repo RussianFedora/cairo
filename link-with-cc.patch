@@ -1,0 +1,15 @@
+--- a/src/Makefile.in	2010-06-26 15:32:39.000000000 +0200
++++ b/src/Makefile.in	2010-07-05 02:20:07.960075657 +0200
+@@ -607,9 +607,9 @@
+ nodist_libcairo_la_OBJECTS =
+ libcairo_la_OBJECTS = $(am_libcairo_la_OBJECTS) \
+ 	$(nodist_libcairo_la_OBJECTS)
+-libcairo_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+-	$(CXXFLAGS) $(libcairo_la_LDFLAGS) $(LDFLAGS) -o $@
++libcairo_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CCFLAGS) \
++	$(CFLAGS) $(libcairo_la_LDFLAGS) $(LDFLAGS) -o $@
+ check_link_SOURCES = check-link.c
+ check_link_OBJECTS = check-link.$(OBJEXT)
+ check_link_DEPENDENCIES = libcairo.la
