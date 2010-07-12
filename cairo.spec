@@ -4,17 +4,13 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.9.10
-Release:	3%{?dist}
+Version:	1.9.12
+Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
-
-# Due to libcairo potentially including C++ backends, it gets linked with g++.
-# We don't enable those backends, so we can link with gcc.
-Patch0:         link-with-cc.patch
 
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
@@ -67,8 +63,6 @@ This package contains tools for working with the cairo graphics library.
 %prep
 %setup -q
 
-%patch0 -p1 -b .link
-
 %build
 %configure --disable-static 	\
 	--enable-warnings 	\
@@ -111,6 +105,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.12-1
+- Update to 1.9.12 snapshot
+- Remove now unnecessary patch
+
 * Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-3
 - Add patch to force linking with gcc, not g++. (#606523)
 
