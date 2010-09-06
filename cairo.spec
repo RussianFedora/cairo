@@ -1,10 +1,10 @@
-%define pixman_version 0.17.5
+%define pixman_version 0.18.4
 %define freetype_version 2.1.9
 %define fontconfig_version 2.2.95
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.9.14
+Version:	1.10.0
 Release:	1%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
@@ -20,6 +20,7 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
+BuildRequires: glib-devel
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -49,6 +50,31 @@ and print output.
 This package contains libraries, header files and developer documentation
 needed for developing software which uses the cairo graphics library.
 
+%package gobject
+Summary: GObject bindings for cairo
+Group: System Environment/Libraries
+
+%description gobject
+Cairo is a 2D graphics library designed to provide high-quality display
+and print output.
+
+This package contains functionality to make cairo graphics library
+integrate well with the GObject object system used by GNOME.
+
+%package gobject-devel
+Summary: Development files for cairo-gobject
+Group: Development/Libraries
+Requires: %{name}-devel = %{version}-%{release}
+Requires: glib-devel
+Requires: pkgconfig
+
+%description gobject-devel
+Cairo is a 2D graphics library designed to provide high-quality display
+and print output.
+
+This package contains libraries, header files and developer documentation
+needed for developing software which uses the cairo Gobject library.
+
 %package tools
 Summary: Development tools for cairo
 Group: Development/Tools
@@ -71,6 +97,7 @@ This package contains tools for working with the cairo graphics library.
 	--enable-ps 		\
 	--enable-pdf 		\
 	--enable-svg 		\
+        --enable-gobject        \
 	--disable-gtk-doc
 make V=1 %{?_smp_mflags}
 
@@ -89,15 +116,44 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS BIBLIOGRAPHY BUGS COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS README
-%{_libdir}/libcairo*.so.*
+%{_libdir}/libcairo.so.*
+%{_libdir}/libcairo-script-interpreter.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc ChangeLog PORTING_GUIDE
-%{_includedir}/*
-%{_libdir}/libcairo*.so
-%{_libdir}/pkgconfig/*
+%{_includedir}/cairo/cairo-deprecated.h
+%{_includedir}/cairo/cairo-features.h
+%{_includedir}/cairo/cairo-ft.h
+%{_includedir}/cairo/cairo.h
+%{_includedir}/cairo/cairo-pdf.h
+%{_includedir}/cairo/cairo-ps.h
+%{_includedir}/cairo/cairo-svg.h
+%{_includedir}/cairo/cairo-version.h
+%{_includedir}/cairo/cairo-xlib-xrender.h
+%{_includedir}/cairo/cairo-xlib.h
+%{_libdir}/libcairo.so
+%{_libdir}/libcairo-script-interpreter.so
+%{_libdir}/pkgconfig/cairo-fc.pc
+%{_libdir}/pkgconfig/cairo-ft.pc
+%{_libdir}/pkgconfig/cairo.pc
+%{_libdir}/pkgconfig/cairo-pdf.pc
+%{_libdir}/pkgconfig/cairo-png.pc
+%{_libdir}/pkgconfig/cairo-ps.pc
+%{_libdir}/pkgconfig/cairo-svg.pc
+%{_libdir}/pkgconfig/cairo-xlib.pc
+%{_libdir}/pkgconfig/cairo-xlib-xrender.pc
 %{_datadir}/gtk-doc/html/cairo
+
+%files gobject
+%defattr(-,root,root,-)
+%{_libdir}/libcairo-gobject.so.*
+
+%files gobject-devel
+%defattr(-,root,root,-)
+%{_includedir}/cairo/cairo-gobject.h
+%{_libdir}/libcairo-gobject.so
+%{_libdir}/pkgconfig/cairo-gobject.pc
 
 %files tools
 %defattr(-,root,root,-)
@@ -105,6 +161,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Tue Sep 07 2010 Benjamin Otte <otte@redhat.com> - 1.10.0-1
+- Update to 1.10.0
+- Add cairo-gobject package
+
 * Mon Jul 26 2010 Benjamin Otte <otte@redhat.com> - 1.9.14-1
 - Update to 1.9.14 snapshot
 
