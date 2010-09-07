@@ -128,6 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cairo/cairo.h
 %{_includedir}/cairo/cairo-pdf.h
 %{_includedir}/cairo/cairo-ps.h
+%{_includedir}/cairo/cairo-script-interpreter.h
 %{_includedir}/cairo/cairo-svg.h
 %{_includedir}/cairo/cairo-version.h
 %{_includedir}/cairo/cairo-xlib-xrender.h
