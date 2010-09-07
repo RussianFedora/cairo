@@ -20,7 +20,7 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
-BuildRequires: glib-devel
+BuildRequires: glib2-devel
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
