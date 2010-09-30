@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.0
-Release:	1%{?dist}
+Release:	1%{?dist}.1
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -162,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Wed Sep 29 2010 jkeating - 1.10.0-1.1
+- Rebuilt for gcc bug 634757
+
 * Tue Sep 07 2010 Benjamin Otte <otte@redhat.com> - 1.10.0-1
 - Update to 1.10.0
 - Add cairo-gobject package
