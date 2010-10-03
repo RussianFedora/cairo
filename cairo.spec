@@ -7,6 +7,7 @@ Name:		cairo
 Version:	1.10.0
 Release:	3%{?dist}
 URL:		http://cairographics.org
+#VCS:		git:git://git.freedesktop.org/git/cairo
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
