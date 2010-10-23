@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.0
-Release:	1%{?dist}.1
+Release:	2%{?dist}
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
@@ -65,7 +65,7 @@ integrate well with the GObject object system used by GNOME.
 Summary: Development files for cairo-gobject
 Group: Development/Libraries
 Requires: %{name}-devel = %{version}-%{release}
-Requires: glib-devel
+Requires: glib2-devel
 Requires: pkgconfig
 
 %description gobject-devel
@@ -162,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Sat Oct 23 2010 Matthew Barnes - 1.10.0-2
+- Fix Requires typo in cairo-gobject-devel (#641590).
+
 * Wed Sep 29 2010 jkeating - 1.10.0-1.1
 - Rebuilt for gcc bug 634757
 
