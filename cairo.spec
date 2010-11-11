@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		http://cairographics.org
 #VCS:		git:git://git.freedesktop.org/git/cairo
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 BuildRequires: glib2-devel
+BuildRequires: librsvg2-devel
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -162,6 +163,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Thu Nov 11 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.10.0-4
+- add missing BuildRequires: librsvg2 for SVG support
+
 * Wed Sep 29 2010 jkeating - 1.10.0-3
 - Rebuilt for gcc bug 634757
 
