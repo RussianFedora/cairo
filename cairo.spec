@@ -5,10 +5,11 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.0
-Release:	2%{?dist}
+Release:	2%{?dist}.1
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Patch0:		cairo-1.10.0-buggy_gradients.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
 
@@ -88,6 +89,7 @@ This package contains tools for working with the cairo graphics library.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %configure --disable-static 	\
@@ -162,6 +164,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Tue Dec 14 2010 Hans de Goede <hdegoede@redhat.com> - 1.10.0-2.fc14.1
+- Re-enable the buggy_gradients workaround, as using hardware gradients
+  causes rendering issues and slowness when using the nvidia binary
+  driver (#649955)
+
 * Sat Oct 23 2010 Matthew Barnes - 1.10.0-2
 - Fix Requires typo in cairo-gobject-devel (#641590).
 
