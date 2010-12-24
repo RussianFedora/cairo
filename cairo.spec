@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.8.10
-Release:	1%{?dist}
+Release:	1%{?dist}.1
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 License:	LGPLv2 or MPLv1.1
@@ -21,6 +21,7 @@ BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 
 Patch0: cairo-1.8.6-repeat-modes.patch
+Patch99: 04_lcd_filter.patch
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -53,6 +54,7 @@ needed for developing software which uses the cairo graphics library.
 %prep
 %setup -q
 %patch0 -p1 -b .repeat-modes
+%patch99 -p1
 
 %build
 %configure --disable-static 	\
@@ -91,6 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/cairo
 
 %changelog
+* Mon Mar 15 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.8.10-1.1
+- apply Ubuntu lcd patch
+
 * Sun Feb 21 2010 Matthias Clasen <mclasen@redhat.com> - 1.8.10-1
 - Update to 1.8.10
 
