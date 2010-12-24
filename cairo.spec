@@ -5,10 +5,11 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.0
-Release:	2%{?dist}
+Release:	2%{?dist}.1
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Patch1:         cairo-1.10.0-buggy_gradients.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
 
@@ -21,6 +22,7 @@ BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
 BuildRequires: glib2-devel
+BuildRequires: librsvg2-devel
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -88,6 +90,7 @@ This package contains tools for working with the cairo graphics library.
 
 %prep
 %setup -q
+%patch1 -p1 -b .buggy_gradient
 
 %build
 %configure --disable-static 	\
@@ -162,6 +165,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Mon Nov 15 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.0-2.1
+- add missing librsvg2-devel
+- fix rh#652124 and rf#419 (nvidia gradient)
+
 * Sat Oct 23 2010 Matthew Barnes - 1.10.0-2
 - Fix Requires typo in cairo-gobject-devel (#641590).
 
