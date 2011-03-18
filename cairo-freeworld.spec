@@ -1,17 +1,19 @@
-%define pixman_version 0.18.4
+%define pixman_version 0.12.0
 %define freetype_version 2.1.9
-%define fontconfig_version 2.2.95
+%define fontconfig_version 2.0
+
 
 Summary:	A 2D graphics library
-Name:		cairo
-Version:	1.10.0
-Release:	2%{?dist}.1
+Name:		cairo-freeworld
+Version:	1.10.2
+Release:	1%{?dist}
 URL:		http://cairographics.org
-Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
-#Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
-Patch1:         cairo-1.10.0-buggy_gradients.patch
+Source0:	http://cairographics.org/releases/cairo-%{version}.tar.gz
+Patch1:		cairo-respect-fontconfig.patch
+Patch2:		cairo-1.10.0-buggy_gradients.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
@@ -21,76 +23,29 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
-BuildRequires: glib2-devel
-BuildRequires: librsvg2-devel
 
-%description
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output. Currently supported output targets include the X Window
-System, OpenGL (via glitz), in-memory image buffers, and image files (PDF,
-PostScript, and SVG).
 
-Cairo is designed to produce consistent output on all output media while
-taking advantage of display hardware acceleration when available (e.g.
+Requires:      /etc/ld.so.conf.d
+
+
+%description 
+Cairo is a 2D graphics library designed to provide high-quality display 
+and print output. Currently supported output targets include the X Window 
+System, OpenGL (via glitz), in-memory image buffers, and image files (PDF, 
+PostScript, and SVG). 
+
+Cairo is designed to produce consistent output on all output media while 
+taking advantage of display hardware acceleration when available (e.g. 
 through the X Render Extension or OpenGL).
 
-%package devel
-Summary: Development files for cairo
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
-Requires: libXrender-devel
-Requires: libpng-devel
-Requires: pixman-devel >= %{pixman_version}
-Requires: freetype-devel >= %{freetype_version}
-Requires: fontconfig-devel >= %{fontconfig_version}
-Requires: pkgconfig
-
-%description devel
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains libraries, header files and developer documentation
-needed for developing software which uses the cairo graphics library.
-
-%package gobject
-Summary: GObject bindings for cairo
-Group: System Environment/Libraries
-
-%description gobject
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains functionality to make cairo graphics library
-integrate well with the GObject object system used by GNOME.
-
-%package gobject-devel
-Summary: Development files for cairo-gobject
-Group: Development/Libraries
-Requires: %{name}-devel = %{version}-%{release}
-Requires: glib2-devel
-Requires: pkgconfig
-
-%description gobject-devel
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains libraries, header files and developer documentation
-needed for developing software which uses the cairo Gobject library.
-
-%package tools
-Summary: Development tools for cairo
-Group: Development/Tools
-
-%description tools
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains tools for working with the cairo graphics library.
- * cairo-trace: Record cairo library calls for later playback
+This package will enable David Turner's LCD filter patch and a patch
+to make cairo respect fontconfig configuration settings.
 
 %prep
-%setup -q
-%patch1 -p1 -b .buggy_gradient
+%setup -q  -n cairo-%{version}
+%patch1 -p1 -b .respect-fontconfig
+%patch2 -p1 -b .buggy_gradients
+
 
 %build
 %configure --disable-static 	\
@@ -100,15 +55,51 @@ This package contains tools for working with the cairo graphics library.
 	--enable-ps 		\
 	--enable-pdf 		\
 	--enable-svg 		\
-        --enable-gobject        \
 	--disable-gtk-doc
-make V=1 %{?_smp_mflags}
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install V=1 DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
+
+# Don't package static a or .la files nor devel files
+rm -rf $RPM_BUILD_ROOT%{_libdir}/*.{a,la,so} \
+       $RPM_BUILD_ROOT%{_libdir}/pkgconfig $RPM_BUILD_ROOT%{_bindir} \
+       $RPM_BUILD_ROOT%{_datadir}/aclocal $RPM_BUILD_ROOT%{_includedir}
+
+# Move library to avoid conflict with official Cairo package
+mkdir $RPM_BUILD_ROOT%{_libdir}/%{name}
+mv -f $RPM_BUILD_ROOT%{_libdir}/libcairo.so.* \
+      $RPM_BUILD_ROOT%{_libdir}/%{name}
+
+# Register the library directory in /etc/ld.so.conf.d
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
+echo "%{_libdir}/%{name}" \
+     >$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d
+
+/bin/echo -e "PRELOAD=1" > $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "if [ -f /etc/sysconfig/fonts ]; then" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "        . /etc/sysconfig/fonts" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "fi" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "A1=\`arch\`" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "A2=%{_arch}" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "if [ \"\${A1:0:1}\" = \"\${A2:0:1}\" -a ! \"\$PRELOAD\" = \"0\" ]; then" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "        ADDED=\`/bin/echo \$LD_PRELOAD | grep \"%{_libdir}/cairo-freeworld/libcairo.so.2\" | wc -l\`" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "        if [ \"\$ADDED\" = \"0\" ]; then" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "                export LD_PRELOAD=%{_libdir}/cairo-freeworld/libcairo.so.2:\$LD_PRELOAD" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "        fi" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+/bin/echo -e "fi" >> $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
+
+
+# Don't install docs
+rm -rf $RPM_BUILD_ROOT%{_datadir}/gtk-doc 
+
+rm -rf $RPM_BUILD_ROOT%{_libdir}/cairo/
+rm -f $RPM_BUILD_ROOT%{_libdir}/libcairo-*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -118,85 +109,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS BIBLIOGRAPHY BUGS COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS README
-%{_libdir}/libcairo.so.*
-%{_libdir}/libcairo-script-interpreter.so.*
+%doc AUTHORS BIBLIOGRAPHY BUGS ChangeLog COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS PORTING_GUIDE README
+%{_libdir}/%{name}
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf 
+%{_sysconfdir}/profile.d/%{name}-%{_arch}.sh
 
-%files devel
-%defattr(-,root,root,-)
-%doc ChangeLog PORTING_GUIDE
-%{_includedir}/cairo/cairo-deprecated.h
-%{_includedir}/cairo/cairo-features.h
-%{_includedir}/cairo/cairo-ft.h
-%{_includedir}/cairo/cairo.h
-%{_includedir}/cairo/cairo-pdf.h
-%{_includedir}/cairo/cairo-ps.h
-%{_includedir}/cairo/cairo-script-interpreter.h
-%{_includedir}/cairo/cairo-svg.h
-%{_includedir}/cairo/cairo-version.h
-%{_includedir}/cairo/cairo-xlib-xrender.h
-%{_includedir}/cairo/cairo-xlib.h
-%{_libdir}/libcairo.so
-%{_libdir}/libcairo-script-interpreter.so
-%{_libdir}/pkgconfig/cairo-fc.pc
-%{_libdir}/pkgconfig/cairo-ft.pc
-%{_libdir}/pkgconfig/cairo.pc
-%{_libdir}/pkgconfig/cairo-pdf.pc
-%{_libdir}/pkgconfig/cairo-png.pc
-%{_libdir}/pkgconfig/cairo-ps.pc
-%{_libdir}/pkgconfig/cairo-svg.pc
-%{_libdir}/pkgconfig/cairo-xlib.pc
-%{_libdir}/pkgconfig/cairo-xlib-xrender.pc
-%{_datadir}/gtk-doc/html/cairo
-
-%files gobject
-%defattr(-,root,root,-)
-%{_libdir}/libcairo-gobject.so.*
-
-%files gobject-devel
-%defattr(-,root,root,-)
-%{_includedir}/cairo/cairo-gobject.h
-%{_libdir}/libcairo-gobject.so
-%{_libdir}/pkgconfig/cairo-gobject.pc
-
-%files tools
-%defattr(-,root,root,-)
-%{_bindir}/cairo-trace
-%{_libdir}/cairo
 
 %changelog
-* Mon Nov 15 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.0-2.1
-- add missing librsvg2-devel
-- fix rh#652124 and rf#419 (nvidia gradient)
-
-* Sat Oct 23 2010 Matthew Barnes - 1.10.0-2
-- Fix Requires typo in cairo-gobject-devel (#641590).
-
-* Wed Sep 29 2010 jkeating - 1.10.0-1.1
-- Rebuilt for gcc bug 634757
-
-* Tue Sep 07 2010 Benjamin Otte <otte@redhat.com> - 1.10.0-1
-- Update to 1.10.0
-- Add cairo-gobject package
-
-* Mon Jul 26 2010 Benjamin Otte <otte@redhat.com> - 1.9.14-1
-- Update to 1.9.14 snapshot
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.12-1
-- Update to 1.9.12 snapshot
-- Remove now unnecessary patch
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-3
-- Add patch to force linking with gcc, not g++. (#606523)
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-2
-- Don't use silent rules, we want verbose output in builders
-
-* Thu Jun 27 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-1
-- Update to 1.9.10 snapshot
-
-* Thu Jun 17 2010 Benjamin Otte <otte@redhat.com> - 1.9.8-1
-- Update to 1.9.8 snapshot
+* Fri Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-1
+- apply infinality patch
+- apply buggy gradient patch
 
 * Sun Feb 21 2010 Matthias Clasen <mclasen@redhat.com> - 1.8.10-1
 - Update to 1.8.10
