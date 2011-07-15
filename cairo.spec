@@ -4,12 +4,13 @@
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.10.0
-Release:	4%{?dist}
+Version:	1.10.2
+Release:	3%{?dist}.1.R
 URL:		http://cairographics.org
 #VCS:		git:git://git.freedesktop.org/git/cairo
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
 #Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Patch1:         cairo-respect-fontconfig.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
 
@@ -89,6 +90,7 @@ This package contains tools for working with the cairo graphics library.
 
 %prep
 %setup -q
+%patch1 -p1 -b .respect-fontconfig
 
 %build
 %configure --disable-static 	\
@@ -98,7 +100,8 @@ This package contains tools for working with the cairo graphics library.
 	--enable-ps 		\
 	--enable-pdf 		\
 	--enable-svg 		\
-        --enable-gobject        \
+	--enable-tee 		\
+	--enable-gobject        \
 	--disable-gtk-doc
 make V=1 %{?_smp_mflags}
 
@@ -131,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cairo/cairo-ps.h
 %{_includedir}/cairo/cairo-script-interpreter.h
 %{_includedir}/cairo/cairo-svg.h
+%{_includedir}/cairo/cairo-tee.h
 %{_includedir}/cairo/cairo-version.h
 %{_includedir}/cairo/cairo-xlib-xrender.h
 %{_includedir}/cairo/cairo-xlib.h
@@ -143,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/cairo-png.pc
 %{_libdir}/pkgconfig/cairo-ps.pc
 %{_libdir}/pkgconfig/cairo-svg.pc
+%{_libdir}/pkgconfig/cairo-tee.pc
 %{_libdir}/pkgconfig/cairo-xlib.pc
 %{_libdir}/pkgconfig/cairo-xlib-xrender.pc
 %{_datadir}/gtk-doc/html/cairo
@@ -163,6 +168,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Fri Jul 15 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.1.R
+- added infinality patch
+- rebuilt for el6
+
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Mon Jan 24 2011 Christopher Aillon <caillon@redhat.com> - 1.10.2-2
+- Enable tee support
+
+* Mon Jan 03 2011 Benjamin Otte <otte@redhat.com> - 1.10.2-1
+- Update to 1.10.2
+
 * Thu Nov 11 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.10.0-4
 - add missing BuildRequires: librsvg2 for SVG support
 
