@@ -166,7 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
-* Fri Jul 15 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.1.R
+* Fri Jul 15 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.el6.1.R
 - added infinality patch
 - rebuilt for el6
 
