@@ -7,9 +7,7 @@ Name:		cairo
 Version:	1.10.2
 Release:	3%{?dist}.1.R
 URL:		http://cairographics.org
-#VCS:		git:git://git.freedesktop.org/git/cairo
-Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.gz
-#Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
+Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 Patch1:         cairo-respect-fontconfig.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
