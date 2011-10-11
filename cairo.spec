@@ -5,7 +5,7 @@
 Summary:	A 2D graphics library
 Name:		cairo
 Version:	1.10.2
-Release:	3.el6.1.R
+Release:	3.el6.2.R
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
 Patch1:         cairo-respect-fontconfig.patch
@@ -166,6 +166,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cairo
 
 %changelog
+* Tue Oct 11 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.el6.2.R
+- bump release for rebuild
+
 * Fri Jul 15 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.el6.1.R
 - added infinality patch
 - rebuilt for el6
