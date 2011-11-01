@@ -1,16 +1,16 @@
-%define pixman_version 0.18.4
+%define pixman_version 0.12.0
 %define freetype_version 2.1.9
-%define fontconfig_version 2.2.95
+%define fontconfig_version 2.0
 
 Summary:	A 2D graphics library
 Name:		cairo
-Version:	1.10.2
-Release:	3.el6.2.R
+Version:	1.8.8
+Release:	3.1%{?dist}.R
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/%{name}-%{version}.tar.gz
-Patch1:         cairo-respect-fontconfig.patch
 License:	LGPLv2 or MPLv1.1
 Group:		System Environment/Libraries
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: pkgconfig
 BuildRequires: libXrender-devel
@@ -20,8 +20,9 @@ BuildRequires: libxml2-devel
 BuildRequires: pixman-devel >= %{pixman_version}
 BuildRequires: freetype-devel >= %{freetype_version}
 BuildRequires: fontconfig-devel >= %{fontconfig_version}
-BuildRequires: glib2-devel
-BuildRequires: librsvg2-devel
+
+Patch0: cairo-1.8.6-repeat-modes.patch
+Patch99: 04_lcd_filter.patch
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -51,44 +52,10 @@ and print output.
 This package contains libraries, header files and developer documentation
 needed for developing software which uses the cairo graphics library.
 
-%package gobject
-Summary: GObject bindings for cairo
-Group: System Environment/Libraries
-
-%description gobject
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains functionality to make cairo graphics library
-integrate well with the GObject object system used by GNOME.
-
-%package gobject-devel
-Summary: Development files for cairo-gobject
-Group: Development/Libraries
-Requires: %{name}-devel = %{version}-%{release}
-Requires: pkgconfig
-
-%description gobject-devel
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains libraries, header files and developer documentation
-needed for developing software which uses the cairo Gobject library.
-
-%package tools
-Summary: Development tools for cairo
-Group: Development/Tools
-
-%description tools
-Cairo is a 2D graphics library designed to provide high-quality display
-and print output.
-
-This package contains tools for working with the cairo graphics library.
- * cairo-trace: Record cairo library calls for later playback
-
 %prep
 %setup -q
-%patch1 -p1 -b .respect-fontconfig
+%patch0 -p1 -b .repeat-modes
+%patch99 -p1 -b .lcd
 
 %build
 %configure --disable-static 	\
@@ -98,15 +65,13 @@ This package contains tools for working with the cairo graphics library.
 	--enable-ps 		\
 	--enable-pdf 		\
 	--enable-svg 		\
-	--enable-tee 		\
-	--enable-gobject        \
 	--disable-gtk-doc
-make V=1 %{?_smp_mflags}
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install V=1 DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
@@ -118,104 +83,22 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS BIBLIOGRAPHY BUGS COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1 NEWS README
-%{_libdir}/libcairo.so.*
-%{_libdir}/libcairo-script-interpreter.so.*
+%{_libdir}/libcairo*.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc ChangeLog PORTING_GUIDE
-%{_includedir}/cairo/cairo-deprecated.h
-%{_includedir}/cairo/cairo-features.h
-%{_includedir}/cairo/cairo-ft.h
-%{_includedir}/cairo/cairo.h
-%{_includedir}/cairo/cairo-pdf.h
-%{_includedir}/cairo/cairo-ps.h
-%{_includedir}/cairo/cairo-script-interpreter.h
-%{_includedir}/cairo/cairo-svg.h
-%{_includedir}/cairo/cairo-tee.h
-%{_includedir}/cairo/cairo-version.h
-%{_includedir}/cairo/cairo-xlib-xrender.h
-%{_includedir}/cairo/cairo-xlib.h
-%{_libdir}/libcairo.so
-%{_libdir}/libcairo-script-interpreter.so
-%{_libdir}/pkgconfig/cairo-fc.pc
-%{_libdir}/pkgconfig/cairo-ft.pc
-%{_libdir}/pkgconfig/cairo.pc
-%{_libdir}/pkgconfig/cairo-pdf.pc
-%{_libdir}/pkgconfig/cairo-png.pc
-%{_libdir}/pkgconfig/cairo-ps.pc
-%{_libdir}/pkgconfig/cairo-svg.pc
-%{_libdir}/pkgconfig/cairo-tee.pc
-%{_libdir}/pkgconfig/cairo-xlib.pc
-%{_libdir}/pkgconfig/cairo-xlib-xrender.pc
+%{_includedir}/*
+%{_libdir}/libcairo*.so
+%{_libdir}/pkgconfig/*
 %{_datadir}/gtk-doc/html/cairo
 
-%files gobject
-%defattr(-,root,root,-)
-%{_libdir}/libcairo-gobject.so.*
-
-%files gobject-devel
-%defattr(-,root,root,-)
-%{_includedir}/cairo/cairo-gobject.h
-%{_libdir}/libcairo-gobject.so
-%{_libdir}/pkgconfig/cairo-gobject.pc
-
-%files tools
-%defattr(-,root,root,-)
-%{_bindir}/cairo-trace
-%{_libdir}/cairo
-
 %changelog
-* Tue Oct 11 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.el6.2.R
-- bump release for rebuild
+* Tue Nov  1 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 1.8.8-3.1.R
+- apply Ubuntu lcd patch
 
-* Fri Jul 15 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-3.el6.1.R
-- added infinality patch
-- rebuilt for el6
-
-* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Mon Jan 24 2011 Christopher Aillon <caillon@redhat.com> - 1.10.2-2
-- Enable tee support
-
-* Mon Jan 03 2011 Benjamin Otte <otte@redhat.com> - 1.10.2-1
-- Update to 1.10.2
-
-* Thu Nov 11 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.10.0-4
-- add missing BuildRequires: librsvg2 for SVG support
-
-* Wed Sep 29 2010 jkeating - 1.10.0-3
-- Rebuilt for gcc bug 634757
-
-* Thu Sep 16 2010 Matthias Clasen <mclasen@redhat.com> - 1.10.0-2
-- Drop the explicit dep on the wrong package from -gobject-devel
-
-* Tue Sep 07 2010 Benjamin Otte <otte@redhat.com> - 1.10.0-1
-- Update to 1.10.0
-- Add cairo-gobject package
-
-* Mon Jul 26 2010 Benjamin Otte <otte@redhat.com> - 1.9.14-1
-- Update to 1.9.14 snapshot
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.12-1
-- Update to 1.9.12 snapshot
-- Remove now unnecessary patch
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-3
-- Add patch to force linking with gcc, not g++. (#606523)
-
-* Sun Jul 04 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-2
-- Don't use silent rules, we want verbose output in builders
-
-* Thu Jun 27 2010 Benjamin Otte <otte@redhat.com> - 1.9.10-1
-- Update to 1.9.10 snapshot
-
-* Thu Jun 17 2010 Benjamin Otte <otte@redhat.com> - 1.9.8-1
-- Update to 1.9.8 snapshot
-
-* Sun Feb 21 2010 Matthias Clasen <mclasen@redhat.com> - 1.8.10-1
-- Update to 1.8.10
+* Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 1.8.8-3.1
+- Rebuilt for RHEL 6
 
 * Sun Aug  2 2009 Matthias Clasen <mclasen@redhat.com> - 1.8.8-3
 - Move ChangeLog to -devel to save space
