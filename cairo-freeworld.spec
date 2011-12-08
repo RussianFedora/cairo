@@ -6,7 +6,7 @@
 Summary:	A 2D graphics library
 Name:		cairo-freeworld
 Version:	1.10.2
-Release:	1%{?dist}
+Release:	1%{?dist}.R
 URL:		http://cairographics.org
 Source0:	http://cairographics.org/releases/cairo-%{version}.tar.gz
 Patch1:		cairo-respect-fontconfig.patch
@@ -116,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-1
+* Fri Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.10.2-1.R
 - apply infinality patch
 - apply buggy gradient patch
 
